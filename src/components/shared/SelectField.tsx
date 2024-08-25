@@ -12,19 +12,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Control, FieldValues, Path, UseFormSetValue } from "react-hook-form";
 
-interface SelectFieldProps<T extends FieldValues> {
-  formControl: Control<T>;
-  name: Path<T>;
+interface SelectFieldProps {
+  formControl: any;
+  name: string;
   label: string;
   placeholder: string;
   className?: string;
   options: string[];
-  setValue?: UseFormSetValue<T>;
+  setValue?: any;
 }
 
-const SelectField = <T extends FieldValues>({
+const SelectField: React.FC<SelectFieldProps> = ({
   formControl,
   name,
   label,
@@ -32,7 +31,7 @@ const SelectField = <T extends FieldValues>({
   options,
   className,
   setValue,
-}: SelectFieldProps<T>) => (
+}) => (
   <FormField
     control={formControl}
     name={name}

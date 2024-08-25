@@ -23,7 +23,6 @@ import usePayment from "@/hook/usePayment";
 import { BuyerDetails, Participant } from "@/types/types";
 import Spinner from "@/components/shared/Spinner";
 
-
 const ParticipantDetails: React.FC = () => {
   const navigate = useNavigate();
   const {
@@ -50,7 +49,8 @@ const ParticipantDetails: React.FC = () => {
   }, [tripId]);
 
   useEffect(() => {
-    if (buyerData) {
+    console.log("Buyer Data ->", buyerData);
+    if (buyerData && buyerData.primaryPassengerData) {
       setBuyerDetails({
         name: buyerData.primaryPassengerData.name,
         mobile: buyerData.primaryPassengerData.mobileNumber,

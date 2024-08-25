@@ -6,23 +6,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Control, FieldValues , Path} from "react-hook-form";
 
-interface FieldProps<T extends FieldValues> {
-  formControl: Control<T>;
-  name: Path<T>;
+interface FieldProps{
+  formControl: any;
+  name: string;
   label: string;
   placeholder?: string;
   className?: string;
 }
 
-const InputField = <T extends FieldValues>({
+const InputField : React.FC<FieldProps> = ({
   formControl,
   name,
   label,
   placeholder,
   className,
-}: FieldProps<T>) => (
+}) => (
   <FormField
     control={formControl}
     name={name}
