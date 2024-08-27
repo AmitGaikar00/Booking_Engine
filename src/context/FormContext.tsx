@@ -12,9 +12,9 @@ interface FormContextProps {
 }
 
 const defaultFormData: FormData = {
-  title: "",
+  title: "Hampi Backpacking 2024",
   availableSeats: 0,
-  availableDates: [],
+  availableDates: ["2024-10-01", "2024-10-02" , "2024-10-03"],
   dateOfTrip: "",
   name: "",
   mobile: "",

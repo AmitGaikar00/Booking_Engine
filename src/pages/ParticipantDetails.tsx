@@ -32,39 +32,14 @@ const ParticipantDetails: React.FC = () => {
     getAutofillDetails,
     saveCoPassengers,
   } = usePayment();
-  const [buyerDetails, setBuyerDetails] = useState<BuyerDetails>({
-    name: "",
-    mobile: "",
-    email: "",
-    age: "",
-    gender: "",
-  });
+
   const { tripId } = useParams<{ tripId: string }>();
   const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    if (tripId) {
-      getAutofillDetails(tripId);
-    }
-  }, [tripId]);
-
-  useEffect(() => {
-    console.log("Buyer Data ->", buyerData);
-    if (buyerData && buyerData.primaryPassengerData) {
-      setBuyerDetails({
-        name: buyerData.primaryPassengerData.name,
-        mobile: buyerData.primaryPassengerData.mobileNumber,
-        email: buyerData.primaryPassengerData.emailId,
-        age: buyerData.primaryPassengerData.age + "",
-        gender: buyerData.primaryPassengerData.gender,
-      });
-    }
-  }, [buyerData]);
 
   const form = useForm<ParticipantFormSchemaType>({
     resolver: zodResolver(participantFormSchema),
     defaultValues: {
-      participants: Array(buyerData ? buyerData.noOfPassengers : 1).fill({
+      participants: Array(buyerData ? buyerData.noOfPassengers : 2).fill({
         name: "",
         mobile: "",
         email: "",
@@ -75,9 +50,7 @@ const ParticipantDetails: React.FC = () => {
   });
 
   // Submit handler
-  async function onSubmit(values: z.infer<typeof participantFormSchema>) {
-    console.log("Participant Details Data", values);
-
+  function onSubmit(values: z.infer<typeof participantFormSchema>) {
     const finalParticipantsData: Participant[] = values.participants.map(
       (participant, index) => {
         return {
@@ -91,31 +64,26 @@ const ParticipantDetails: React.FC = () => {
       }
     );
 
-    try {
-      const result = await saveCoPassengers(finalParticipantsData);
-
-      if (result) {
-        navigate("/confirm");
-      }
-
-      if (errorResponse) {
-        alert("Failed Please try again :" + errorResponse);
-      }
-    } catch (error) {
-      console.error("Failed Please try again :", error);
-    }
-
-    console.log("Final Participants Data ->", finalParticipantsData);
+    console.log("finalParticipantsData ->", finalParticipantsData);
+    navigate("/confirm");
   }
 
+  const buyerDetails = {
+    name: "amit",
+    mobile: "9172968712",
+    email: "amit@gmail.com",
+    age: "12",
+    gender: "MALE",
+  };
+
   function handleCheckboxChange(checked: boolean) {
+    setChecked(checked);
     if (checked) {
-      setChecked(true);
       form.setValue("participants.0", {
         ...buyerDetails,
       });
+      form.trigger("participants.0");
     } else {
-      setChecked(false);
       form.setValue("participants.0", {
         name: "",
         mobile: "",
@@ -124,9 +92,8 @@ const ParticipantDetails: React.FC = () => {
         gender: "",
       });
     }
+    form.trigger("participants.0");
   }
-
-  const storedTripName = sessionStorage.getItem("bookingTitle");
 
   return (
     <>
@@ -142,8 +109,7 @@ const ParticipantDetails: React.FC = () => {
         <div>
           <Header
             Heading="Participant Details"
-            // tripName="Hampi Backpacking 2024"
-            tripName={storedTripName ? JSON.parse(storedTripName) : ""}
+            tripName="Hampi Backpacking 2024"
             step={3}
           />
 
@@ -169,6 +135,7 @@ const ParticipantDetails: React.FC = () => {
                       {index === 0 && (
                         <div className="flex items-center justify-start space-x-2">
                           <Checkbox
+                            checked={checked}
                             onCheckedChange={handleCheckboxChange}
                             id="terms"
                           />
@@ -231,34 +198,6 @@ const ParticipantDetails: React.FC = () => {
                             placeholder="Enter your age"
                           />
                         </div>
-
-                        {/* Additional Fields */}
-
-                        {/* <InputField
-                      formControl={form.control}
-                      name={`participants.${index}.ticketType`}
-                      label="Ticket Type"
-                      placeholder="Enter ticket type"
-                    /> */}
-
-                        {/* {index === 0 ? (
-                      <SelectField
-                        formControl={form.control}
-                        name={`participants.${index}.pickingLocation`}
-                        label="Pick-up Location"
-                        options={["Location A", "Location B"]}
-                        placeholder="Select pick up location"
-                        setValue={form.setValue}
-                      />
-                    ) : (
-                      <SelectField
-                        formControl={form.control}
-                        name={`participants.${index}.pickingLocation`}
-                        label="Pick-up Location"
-                        options={["Location A", "Location B"]}
-                        placeholder="Select pick up location"
-                      />
-                    )} */}
                       </div>
                     </AccordionContent>
                   </AccordionItem>

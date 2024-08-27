@@ -92,18 +92,22 @@ const Form2: React.FC = () => {
       isPayingBookingAmount: form.watch("book_slot") ? true : false,
     };
 
-    try {
-      const result = await makePayment(finalData);
-      if (result?.url) {
-        window.location.href = result.url; // Redirect to payment URL
-      }
-      if (errorResponse) {
-        alert("Failed Please try again :" + errorResponse);
-      }
-    } catch (error) {
-      alert("Failed Please try again :" + error);
-      console.error("Failed Please try again :", error);
-    }
+    // try {
+    //   const result = await makePayment(finalData);
+    //   if (result?.url) {
+    //     window.location.href = result.url; // Redirect to payment URL
+    //   }
+    //   if (errorResponse) {
+    //     alert("Failed Please try again :" + errorResponse);
+    //   }
+    // } catch (error) {
+    //   alert("Failed Please try again :" + error);
+    //   console.error("Failed Please try again :", error);
+    // }
+
+    navigate(
+      "/success?mode=UPI&utr=403993715532165013&txnId=9105455a-83f2-4112-8264-28a915d69d78&amount=1990.10&status=success&message=Transaction%20completed%20successfully&tripId=f20bfe6f-b5eb-462f-ba07-46822826af1e"
+    );
 
     console.log(data);
     console.log(finalData);

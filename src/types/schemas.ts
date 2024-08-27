@@ -18,10 +18,6 @@ export const participantFormSchema = z.object({
           message: "Age must be a number.",
         }),
       gender: z.string().min(1, { message: "Gender is required." }),
-      //   ticketType: z.string().min(1, { message: "Ticket type is required." }),
-      //   pickingLocation: z
-      //     .string()
-      //     .min(1, { message: "Pick-up location is required." }),
     })
   ),
 });

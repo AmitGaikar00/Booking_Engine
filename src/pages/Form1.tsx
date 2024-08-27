@@ -38,19 +38,18 @@ const FormStep1: React.FC = () => {
     },
   });
 
-  useEffect(() => {
-    if (tripName) {
-      fetchData(tripName);
-    }
-  }, [tripName]);
+  // useEffect(() => {
+  //   if (tripName) {
+  //     fetchData(tripName);
+  //   }
+  // }, [tripName]);
 
-  useEffect(() => {
-    if (inputBookingData) {
-      updateFormData(inputBookingData);
-      console.log(inputBookingData);
-      // sessionStorage.setItem("bookingTitle", inputBookingData.title);
-    }
-  }, [inputBookingData]);
+  // useEffect(() => {
+  //   if (inputBookingData) {
+  //     updateFormData(inputBookingData);
+  //     console.log(inputBookingData);
+  //   }
+  // }, [inputBookingData]);
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof form1Schema>) {
