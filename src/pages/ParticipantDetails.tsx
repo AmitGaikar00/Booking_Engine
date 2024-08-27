@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,7 +20,7 @@ import {
 } from "@/types/schemas";
 import { useNavigate, useParams } from "react-router-dom";
 import usePayment from "@/hook/usePayment";
-import { BuyerDetails, Participant } from "@/types/types";
+import { Participant } from "@/types/types";
 import Spinner from "@/components/shared/Spinner";
 
 const ParticipantDetails: React.FC = () => {
@@ -29,11 +29,10 @@ const ParticipantDetails: React.FC = () => {
     isLoading,
     errorResponse,
     buyerData,
-    getAutofillDetails,
-    saveCoPassengers,
+
   } = usePayment();
 
-  const { tripId } = useParams<{ tripId: string }>();
+  // const { tripId } = useParams<{ tripId: string }>();
   const [checked, setChecked] = useState(false);
 
   const form = useForm<ParticipantFormSchemaType>({
