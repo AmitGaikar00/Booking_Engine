@@ -93,7 +93,7 @@ const ParticipantDetails: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <Spinner height="8" width="8" />
+        <Spinner/>
       ) : errorResponse ? (
         <div className="grid h-screen place-content-center bg-white px-4">
           <h1 className="uppercase tracking-widest text-red-500">
