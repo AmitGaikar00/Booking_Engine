@@ -39,6 +39,7 @@ export const form1Schema = z.object({
     .refine((val) => !isNaN(Number(val)), {
       message: "Invalid phone number.",
     }),
+  email: z.string().email({ message: "Invalid email address." }),
   age: z
     .string()
     .min(1, { message: "Age is required" })
