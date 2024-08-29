@@ -1,9 +1,10 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const HeroSection: React.FC = () => {
   const navigate = useNavigate();
+
   return (
     <section className="bg-gray-50">
       <div className="mx-auto max-w-screen-xl px-4 py-32 flex items-center justify-center h-screen">

@@ -1,57 +1,99 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { FormProvider } from "@/context/FormContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
-import Form1 from "./pages/Form1.tsx";
-import Form2 from "./pages/Form2.tsx";
-import Success from "./pages/Success.tsx";
-import Failure from "./pages/Failure.tsx";
-import NotFound from "./pages/NotFound.tsx";
-import ParticipantDetails from "./pages/ParticipantDetails.tsx";
-import ConfirmBooking from "./pages/ConfirmBooking.tsx";
-import HeroSection from "./components/shared/HeroSection.tsx";
+import Spinner from "./components/shared/Spinner";
+
+const Form1 = lazy(() => import("./pages/Form1"));
+const Form2 = lazy(() => import("./pages/Form2"));
+const Success = lazy(() => import("./pages/Success"));
+const Failure = lazy(() => import("./pages/Failure"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ParticipantDetails = lazy(() => import("./pages/ParticipantDetails"));
+const ConfirmBooking = lazy(() => import("./pages/ConfirmBooking"));
+const HeroSection = lazy(() => import("./components/shared/HeroSection"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HeroSection />,
+    element: (
+      <Suspense fallback={<Spinner width="12" height="12" />}>
+        <HeroSection />
+      </Suspense>
+    ),
   },
   {
     path: "/",
-    element: <App />,
-    errorElement: <NotFound />,
+    element: (
+      <Suspense fallback={<Spinner width="12" height="12" />}>
+        <App />
+      </Suspense>
+    ),
+    errorElement: (
+      <Suspense fallback={<Spinner width="12" height="12" />}>
+        <NotFound />
+      </Suspense>
+    ),
     children: [
       {
         path: "/booking/form1/:tripName",
-        element: <Form1 />,
+        element: (
+          <Suspense fallback={<Spinner width="12" height="12" />}>
+            <Form1 />
+          </Suspense>
+        ),
       },
       {
         path: "/booking/form2",
-        element: <Form2 />,
+        element: (
+          <Suspense fallback={<Spinner width="12" height="12" />}>
+            <Form2 />
+          </Suspense>
+        ),
       },
       {
         path: "/success",
-        element: <Success />,
+        element: (
+          <Suspense fallback={<Spinner width="12" height="12" />}>
+            <Success />
+          </Suspense>
+        ),
       },
       {
         path: "/failure",
-        element: <Failure />,
+        element: (
+          <Suspense fallback={<Spinner width="12" height="12" />}>
+            <Failure />
+          </Suspense>
+        ),
       },
       {
         path: "booking/participants/:tripId",
-        element: <ParticipantDetails />,
+        element: (
+          <Suspense fallback={<Spinner width="12" height="12" />}>
+            <ParticipantDetails />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: "*",
-    element: <NotFound />,
+    element: (
+      <Suspense fallback={<Spinner width="12" height="12" />}>
+        <NotFound />
+      </Suspense>
+    ),
   },
   {
     path: "/confirm",
-    element: <ConfirmBooking />,
+    element: (
+      <Suspense fallback={<Spinner width="12" height="12" />}>
+        <ConfirmBooking />
+      </Suspense>
+    ),
   },
 ]);
 
