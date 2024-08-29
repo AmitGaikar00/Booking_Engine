@@ -16,7 +16,7 @@ import {
 interface SelectFieldProps {
   formControl: any;
   name: string;
-  label: string;
+  label?: string;
   placeholder: string;
   className?: string;
   options: string[];
@@ -37,7 +37,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
     name={name}
     render={({ field }) => (
       <FormItem className={className}>
-        <FormLabel>{label}</FormLabel>
+        {label && <FormLabel>{label}</FormLabel>}
         <FormControl>
           <Select
             onValueChange={
@@ -57,7 +57,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
             </SelectContent>
           </Select>
         </FormControl>
-        <FormMessage />
+        <FormMessage className="text-left" />
       </FormItem>
     )}
   />

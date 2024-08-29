@@ -64,3 +64,11 @@ export const form2Schema = z.object({
 });
 
 export type Form2SchemaType = z.infer<typeof form2Schema>;
+
+// trip schema
+
+export const tripSchema = z.object({
+  trip: z.string().min(1, { message: "Please Select the trip." }),
+});
+
+export type TripSchemaType = z.infer<typeof tripSchema>;
