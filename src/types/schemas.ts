@@ -9,7 +9,10 @@ export const participantFormSchema = z.object({
         .min(2, { message: "Name must be at least 2 characters long." }),
       mobile: z
         .string()
-        .min(10, { message: "Mobile number must be at least 10 digits long." }),
+        .min(10, { message: "Mobile number must be at least 10 digits long." })
+        .refine((val) => !isNaN(Number(val)), {
+          message: "Invalid phone number.",
+        }),
       email: z.string().email({ message: "Invalid email address." }),
       age: z
         .string()
@@ -32,8 +35,10 @@ export const form1Schema = z.object({
     .min(2, { message: "Name must be at least 2 characters long." }),
   mobile: z
     .string()
-    .min(10, { message: "Mobile number must be at least 10 digits long." }),
-  email: z.string().email({ message: "Invalid email address." }),
+    .min(10, { message: "Mobile number must be at least 10 digits long." })
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Invalid phone number.",
+    }),
   age: z
     .string()
     .min(1, { message: "Age is required" })
